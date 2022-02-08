@@ -1,2 +1,2 @@
-# gr.api.day
-用于判断某天是否满足特殊条件. 比如: 2022-01-31是否为工作日?
+# gr.api.sheet
+转换csv, sheet文件为restful api
