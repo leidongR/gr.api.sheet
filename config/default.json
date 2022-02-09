@@ -1,0 +1,8 @@
+{
+    "port": 5208,
+    "source": {
+        "local": [
+            "test_files"
+        ]
+    }
+}

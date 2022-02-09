@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "skipLibCheck": true,
+        "module": "commonjs",
+        "target": "es2017",
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "dist",
+        "baseUrl": "./",
+        "paths": {
+            "src/*": [
+                "./src/*",
+                "./dist/*"
+            ]
+        }
+    },
+    "include": [
+        "src/**/*"
+    ]
+}
