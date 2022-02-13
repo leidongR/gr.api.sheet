@@ -1,5 +1,5 @@
 import * as XLSX from "xlsx";
-import { getFileName } from "./file";
+import { Table } from "./table";
 
 export interface LocalFile {
   filepath: string;
@@ -14,6 +14,31 @@ export interface Sheet {
   source: SheetSource;
 }
 
+const __sharedTables: { [key: string]: Table } = {};
+export const getTable = (tableId: string, opts: { [key: string]: string }) => {
+  if (!Object.prototype.hasOwnProperty.call(__sharedTables, tableId)) {
+    throw new Error(`not found table with id ${tableId}`);
+  }
+
+  return __sharedTables[tableId].find(opts);
+};
+
+export const listTable = (opts: { [key: string]: string }) => {
+  const results = [];
+  for (const key in __sharedTables) {
+    if (Object.prototype.hasOwnProperty.call(__sharedTables, key)) {
+      results.push({
+        tableId: key,
+        ...__sharedTables[key].medadata,
+      });
+    }
+  }
+  return {
+    count: results.length,
+    data: results,
+  };
+};
+
 const readLocalExcelFile = (filepath: string) => {
   var workbook = XLSX.readFile(filepath);
   var sheetNames = workbook.SheetNames;
@@ -26,18 +51,26 @@ const readLocalExcelFile = (filepath: string) => {
       raw: true,
       rawNumbers: true,
     });
-    console.log(data);
 
     // check rows count
     if (data.length < 2) {
-        throw new Error(`no content in local file(${filepath})`)
+      throw new Error(`no content in local file(${filepath})`);
     }
 
-    // verify title row
-    const titleRow = data[0];
-    titleRow.map(title => `${title}`)
+    // build table
+    // todo: use uique and stable tableid
+    const table = new Table("3", { file: filepath, sheet: sheetName });
+
+    table.addTitles(data[0]);
+
+    for (let index = 0; index < data.length; index++) {
+      const rowNum = index + 1;
+      if (rowNum === 1) table.addTitles(data[0]);
+      else table.addCells(data[index], rowNum);
+    }
 
     // add to cache
+    __sharedTables[table.id] = table;
   });
 };
 

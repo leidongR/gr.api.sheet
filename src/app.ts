@@ -4,11 +4,12 @@ import * as Router from "koa-router";
 import * as bodyParser from "koa-bodyparser";
 import * as fss from "fs";
 import * as fs from "fs/promises";
-import SheetsSchemaHandler from "./service/sheets_schema";
+import SheetsHandler from "./service/sheetsHandler";
 import { getProcessEnv } from "./lib/fieldPicker";
 import config = require("config");
 import { readLocalFile } from "./lib/sheets";
 import { filesInFolders } from "./lib/file";
+import SheetHandler from "./service/sheetHandler";
 
 // check required envs
 const initedMark = getProcessEnv("APP_INITED_MARK", "/tmp/isAppInited");
@@ -18,7 +19,8 @@ const router = new Router();
 app.use(cors());
 
 // Rest Handler
-router.all("(/sheets/[^/]+/schema)", SheetsSchemaHandler.rest);
+router.all("(/sheets/[^/]+[/]*)", SheetHandler.rest);
+router.all("(/sheets[/]*)", SheetsHandler.rest);
 
 // parse request body
 app.use(bodyParser());
