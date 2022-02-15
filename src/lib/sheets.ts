@@ -1,4 +1,5 @@
 import * as XLSX from "xlsx";
+import { hashString } from "./hash";
 import { Table } from "./table";
 
 export interface LocalFile {
@@ -58,8 +59,9 @@ const readLocalExcelFile = (filepath: string) => {
     }
 
     // build table
-    // todo: use uique and stable tableid
-    const table = new Table("3", { file: filepath, sheet: sheetName });
+    const tableMeta = { file: filepath, sheet: sheetName };
+    const tableId = hashString(JSON.stringify(tableMeta));
+    const table = new Table(tableId, { file: filepath, sheet: sheetName });
 
     table.addTitles(data[0]);
 
