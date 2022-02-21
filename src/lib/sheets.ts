@@ -16,15 +16,18 @@ export interface Sheet {
 }
 
 const __sharedTables: { [key: string]: Table } = {};
-export const getTable = (tableId: string, opts: { [key: string]: string }) => {
+export const getTable = (
+  tableId: string,
+  query: NodeJS.Dict<string | string[]>
+) => {
   if (!Object.prototype.hasOwnProperty.call(__sharedTables, tableId)) {
-    throw new Error(`not found table with id ${tableId}`);
+    throw new Error(`not found sheet with id ${tableId}`);
   }
 
-  return __sharedTables[tableId].find(opts);
+  return __sharedTables[tableId].find(query);
 };
 
-export const listTable = (opts: { [key: string]: string }) => {
+export const listTable = (query: NodeJS.Dict<string | string[]>) => {
   const results = [];
   for (const key in __sharedTables) {
     if (Object.prototype.hasOwnProperty.call(__sharedTables, key)) {

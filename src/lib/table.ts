@@ -1,8 +1,10 @@
 import { max_columns_count, min_columns_count, num_to_column } from "./column";
+import { parseConditionsOfQuery } from "./query";
 
 export class Table {
   id: string;
   titles: string[];
+  titlesInLowerCase: string[];
   titleDict: { [title: string]: number };
   columnCount: number;
   rows: {
@@ -21,7 +23,7 @@ export class Table {
     var titlesCount: number = titleRow.length;
     if (titlesCount < min_columns_count || titlesCount > max_columns_count) {
       throw new Error(
-        `title row is empty or contains too many columns in table(${this.id})`
+        `title row is empty or contains too many columns in sheet(${this.id})`
       );
     }
 
@@ -32,7 +34,7 @@ export class Table {
       const column_num = index + 1;
       if (title.length === 0) {
         throw new Error(
-          `empty title at column ${num_to_column(column_num)} in table(${
+          `empty title at column ${num_to_column(column_num)} in sheet(${
             this.id
           })`
         );
@@ -43,7 +45,7 @@ export class Table {
         throw new Error(
           `duplicated title found at column ${num_to_column(
             column_num
-          )} and ${num_to_column(exists_column_num)} in table(${this.id})`
+          )} and ${num_to_column(exists_column_num)} in sheet(${this.id})`
         );
       }
 
@@ -51,6 +53,7 @@ export class Table {
     }
 
     this.titles = titleRow;
+    this.titlesInLowerCase = titleRow.map(title => title.toLowerCase());
     this.titleDict = titleDict;
     this.columnCount = titlesCount;
   };
@@ -78,7 +81,8 @@ export class Table {
     });
   };
 
-  find = (opts: { [key: string]: string }) => {
+  find = (query: NodeJS.Dict<string | string[]>) => {
+    const conditions = parseConditionsOfQuery(query, this.titles, this.titlesInLowerCase)
     const results = this.rows
       .filter((row) => true)
       .map((_, index) => this.buildRowObj(index));

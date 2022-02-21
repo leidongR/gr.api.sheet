@@ -1,5 +1,5 @@
 import * as Koa from "koa";
-import { getTable, listTable } from "src/lib/sheets";
+import { getTable, listTable } from "../lib/sheets";
 
 class SheetsHandler {
   constructor() {}
