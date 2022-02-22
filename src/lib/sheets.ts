@@ -1,21 +1,8 @@
 import * as XLSX from "xlsx";
 import { hashString } from "./hash";
-import { Table } from "./table";
+import { Sheet } from "./sheet";
 
-export interface LocalFile {
-  filepath: string;
-  type: "excel" | "csv";
-  sheetName?: string; // sheet name of excel file; undefined for csv file
-}
-
-export type SheetSource = LocalFile;
-
-export interface Sheet {
-  id: string; // unique id of sheet
-  source: SheetSource;
-}
-
-const __sharedTables: { [key: string]: Table } = {};
+const __sharedTables: { [key: string]: Sheet } = {};
 export const getTable = (
   tableId: string,
   query: NodeJS.Dict<string | string[]>
@@ -64,7 +51,7 @@ const readLocalExcelFile = (filepath: string) => {
     // build table
     const tableMeta = { file: filepath, sheet: sheetName };
     const tableId = hashString(JSON.stringify(tableMeta));
-    const table = new Table(tableId, { file: filepath, sheet: sheetName });
+    const table = new Sheet(tableId, { file: filepath, sheet: sheetName });
 
     table.addTitles(data[0]);
 

@@ -1,11 +1,5 @@
 import * as Koa from "koa";
-import config = require("config");
-import { parseConditionsOfQuery } from "../lib/query";
 import { getTable } from "../lib/sheets";
-
-const queryingSplitterInArray = config.get(
-  "quering.splitter_in_array"
-) as string;
 
 class SheetHandler {
   constructor() {}

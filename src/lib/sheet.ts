@@ -1,7 +1,7 @@
 import { max_columns_count, min_columns_count, num_to_column } from "./column";
 import { parseConditionsOfQuery } from "./query";
 
-export class Table {
+export class Sheet {
   id: string;
   titles: string[];
   titlesInLowerCase: string[];
