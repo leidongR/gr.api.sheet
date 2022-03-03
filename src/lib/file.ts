@@ -28,13 +28,13 @@ export const filesInFolder = (
       var extLowerCase = ext.toLowerCase();
       if (allowedExts.includes(extLowerCase)) {
         if (extLowerCase === "xlsx" && getFileName(path).startsWith("~$")) {
-          console.info(`[Info] ignore file path(${path})}`);
+          console.info(`[Info] ignore file at path(${path})}`);
         } else {
           filepaths.push(path);
         }
       } else {
         console.info(
-          `[Info] ignore file path(${path}) with disallowed ext, opts: ${allowedExts.join(
+          `[Info] ignore file at path(${path}) with disallowed ext, opts: ${allowedExts.join(
             ", "
           )}`
         );

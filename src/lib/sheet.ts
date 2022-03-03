@@ -239,4 +239,13 @@ export class Sheet {
     });
     return obj;
   };
+
+  schema = () => {
+    return this.columns.map(column => {
+      return {
+        "title": column.title,
+        "dataType": column.dataType
+      }
+    })
+  }
 }

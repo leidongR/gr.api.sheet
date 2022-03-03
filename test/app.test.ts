@@ -20,7 +20,7 @@ test('List sheets', async () => {
     expect(result.count).toBeGreaterThan(0);
     expect(result.count).toBe(result.data.length);
 
-    const sheet = (result.data as any[]).find(sheet => sheet.tableId === "2602258009");
+    const sheet = (result.data as any[]).find(sheet => sheet.sheetId === "2602258009");
     expect(sheet.file).toBe("test_files/us-stock-holiday.xlsx");
     expect(sheet.sheet).toBe("us-stock-holiday");
 });
@@ -33,7 +33,7 @@ test('Get sheet - no querying', async () => {
     expect(result.count).toBeGreaterThan(0);
     expect(result.count).toBe(result.data.length);
 
-    const sheet = (result.data as any[]).find(sheet => sheet.tableId === "2602258009");
+    const sheet = (result.data as any[]).find(sheet => sheet.sheetId === "2602258009");
     expect(sheet.file).toBe("test_files/us-stock-holiday.xlsx");
     expect(sheet.sheet).toBe("us-stock-holiday");
 });

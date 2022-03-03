@@ -1,5 +1,5 @@
 import * as Koa from "koa";
-import { getTable } from "../lib/sheets";
+import { getSheet } from "../lib/sheets";
 
 class SheetHandler {
   constructor() {}
@@ -34,7 +34,7 @@ class SheetHandler {
   }
 
   static async get(ctx: Koa.Context, sheetId: string) {
-    ctx.body = getTable(sheetId, ctx.query);
+    ctx.body = getSheet(sheetId).find(ctx.query);
   }
 }
 

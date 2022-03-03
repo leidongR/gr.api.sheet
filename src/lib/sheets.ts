@@ -2,26 +2,33 @@ import * as XLSX from "xlsx";
 import { hashString } from "./hash";
 import { Sheet } from "./sheet";
 
-const __sharedTables: { [key: string]: Sheet } = {};
-export const getTable = (
-  tableId: string,
-  query: NodeJS.Dict<string | string[]>
-) => {
-  if (!Object.prototype.hasOwnProperty.call(__sharedTables, tableId)) {
-    throw new Error(`not found sheet with id ${tableId}`);
+const __sharedSheets: { [key: string]: Sheet } = {};
+export const getSheet = (sheetId: string) => {
+  if (!Object.prototype.hasOwnProperty.call(__sharedSheets, sheetId)) {
+    throw new Error(`not found sheet with id ${sheetId}`);
   }
 
-  return __sharedTables[tableId].find(query);
+  return __sharedSheets[sheetId];
 };
 
-export const listTable = (query: NodeJS.Dict<string | string[]>) => {
+export const listSheet = (query: NodeJS.Dict<string | string[]>) => {
+  // get query opts
+  const includeSchema = `${query.schema || ""}`.toLocaleLowerCase() === "true";
+
+  // build results
   const results = [];
-  for (const key in __sharedTables) {
-    if (Object.prototype.hasOwnProperty.call(__sharedTables, key)) {
-      results.push({
-        tableId: key,
-        ...__sharedTables[key].medadata,
-      });
+  for (const key in __sharedSheets) {
+    if (Object.prototype.hasOwnProperty.call(__sharedSheets, key)) {
+      const sheet = __sharedSheets[key];
+      const sheetInfo = {
+        sheetId: key,
+        ...sheet.medadata,
+      };
+      if (includeSchema) {
+        (sheetInfo as any)["schema"] = sheet.schema();
+      }
+
+      results.push(sheetInfo);
     }
   }
   return {
@@ -34,8 +41,8 @@ const readLocalExcelFile = (filepath: string) => {
   var workbook = XLSX.readFile(filepath);
   var sheetNames = workbook.SheetNames;
   sheetNames.forEach((sheetName) => {
-    var sheet = workbook.Sheets[sheetName];
-    var data: any[][] = XLSX.utils.sheet_to_json(sheet, {
+    var excelSheet = workbook.Sheets[sheetName];
+    var data: any[][] = XLSX.utils.sheet_to_json(excelSheet, {
       header: 1,
       blankrows: false,
       defval: "",
@@ -48,21 +55,21 @@ const readLocalExcelFile = (filepath: string) => {
       throw new Error(`no content in local file(${filepath})`);
     }
 
-    // build table
-    const tableMeta = { file: filepath, sheet: sheetName };
-    const tableId = hashString(JSON.stringify(tableMeta));
-    const table = new Sheet(tableId, { file: filepath, sheet: sheetName });
+    // build sheet
+    const sheetMeta = { filepath, sheetName };
+    const sheetId = hashString(JSON.stringify(sheetMeta));
+    const sheet = new Sheet(sheetId, { filepath, sheetName });
 
-    table.addTitles(data[0]);
+    sheet.addTitles(data[0]);
 
     for (let index = 0; index < data.length; index++) {
       const rowNum = index + 1;
-      if (rowNum === 1) table.addTitles(data[0]);
-      else table.addCells(data[index], rowNum);
+      if (rowNum === 1) sheet.addTitles(data[0]);
+      else sheet.addCells(data[index], rowNum);
     }
 
     // add to cache
-    __sharedTables[table.id] = table;
+    __sharedSheets[sheet.id] = sheet;
   });
 };
 
