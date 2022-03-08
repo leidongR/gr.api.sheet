@@ -13,7 +13,7 @@ export const getSheet = (sheetId: string) => {
 
 export const listSheet = (query: NodeJS.Dict<string | string[]>) => {
   // get query opts
-  const includeSchema = `${query.schema || ""}`.toLocaleLowerCase() === "true";
+  const includeSchema = `${query.schema || "true"}`.toLocaleLowerCase() === "true";
 
   // build results
   const results = [];
