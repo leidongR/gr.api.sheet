@@ -9,13 +9,13 @@ export class SheetColumn {
   columnIndex: number;
   titlesInLowerCase: string;
   title: string;
-  dataType: ValueDataType;
+  dataType: ValueDataType | undefined;
   cells: ValueDataType[];
   constructor(title: string, index: number) {
     this.columnIndex = index;
     this.titlesInLowerCase = title.toLowerCase();
     this.title = title;
-    this.dataType = "string";
+    this.dataType = undefined;
     this.cells = [];
   }
 
@@ -30,6 +30,7 @@ export class SheetColumn {
         if (typeof cell === "number") {
           _cell = cell;
         } else {
+          
           this.dataType = "string";
           _cell = `${cell}`;
         }
