@@ -27,18 +27,23 @@ app.use(bodyParser());
 //Use the Router on the sub routes
 app.use(router.routes());
 
-export const App = app;
 export const initApp = async () => {
+  console.log(`[Info] begin to init app`);
+
   // delete mark file
   if (fss.existsSync(initedMark)) await fs.rm(initedMark);
 
   // init local files
   const localPathes = config.get("source.local") as string[];
   const localFilePaths = filesInFolders(localPathes, ["xlsx", "csv"], true);
-  localFilePaths.forEach(filepath => {
-    readLocalFile(filepath)
-  })
-  
+  localFilePaths.forEach((filepath) => {
+    readLocalFile(filepath);
+  });
+
   // create mark file. this file is used by readinessProbe
   await fs.writeFile(initedMark, "inited");
+
+  console.log(`[Info] init app successfully`);
+
+  return app;
 };

@@ -40,7 +40,8 @@
       "/node_modules/",
       "/build/",
       "/coverage/"
-    ]
+    ],
+    "globalSetup": "./test/prepare.js"
   },
   "repository": {
     "type": "git",

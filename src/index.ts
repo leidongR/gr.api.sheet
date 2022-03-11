@@ -1,14 +1,12 @@
 import config = require("config");
-import { App, initApp } from "./app";
+import { initApp } from "./app";
 
 const port = process.env.PORT || config.get("port");
 
-console.log(`[Info] begin to init app`);
-initApp()
-  .then((_) => {
-    console.log(`[Info] init app successfully`);
 
-    const server = App.listen(port);
+initApp()
+  .then((app) => {
+    const server = app.listen(port);
 
     process.on("unhandledRejection", (reason, p) =>
       console.log(
