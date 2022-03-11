@@ -1,4 +1,4 @@
-const request = require('supertest');
+import { agent as request } from "supertest";
 
 test('Get sheet - no querying', async () => {
     const app = (process as any).app;
