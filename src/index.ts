@@ -9,13 +9,13 @@ initApp()
     const server = app.listen(port);
 
     process.on("unhandledRejection", (reason, p) =>
-      console.log(
+      console.error(
         `[Error] Unhandled Rejection at: Promise ${p}, details: ${reason}`
       )
     );
 
-    server.on("listening", () => console.log(`[Info] app started on ${port}`));
+    server.on("listening", () => console.info(`[Info] app started on ${port}`));
   })
   .catch((e) => {
-    console.log(`[Error] init app failed with error: ${e}`);
+    console.error(`[Error] init app failed with error: ${e}`);
   });
