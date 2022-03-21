@@ -27,3 +27,15 @@ test('List sheets', async () => {
     expect(schema[2].title).toBe("Exchange");
     expect(schema[2].dataType).toBe("string");
 });
+
+test('List sheets - no schema', async () => {
+    const response = await request(app.callback()).get('/sheets?schema=false');
+    expect(response.status).toBe(200);
+
+    const result = JSON.parse(response.text);
+    expect(result.count).toBeGreaterThan(0);
+    expect(result.count).toBe(result.data.length);
+
+    const sheet = (result.data as any[]).find(sheet => sheet.sheetId === "3584589747");
+    expect(sheet.schema).toBe(undefined);
+});
