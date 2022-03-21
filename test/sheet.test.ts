@@ -8,6 +8,20 @@ beforeAll(async () => {
     app = await initApp();
 });
 
+test('Http Methods', async () => {
+    let response = await request(app.callback()).head('/sheets/3584589747');
+    expect(response.status).toBe(403);
+
+    response = await request(app.callback()).post('/sheets/3584589747');
+    expect(response.status).toBe(403);
+
+    response = await request(app.callback()).patch('/sheets/3584589747');
+    expect(response.status).toBe(403);
+
+    response = await request(app.callback()).delete('/sheets/3584589747');
+    expect(response.status).toBe(403);
+});
+
 test('Get sheet - no querying', async () => {
     const response = await request(app.callback()).get('/sheets/3584589747');
     expect(response.status).toBe(200);
@@ -207,11 +221,6 @@ test('Get sheet - $deselect + $limit', async () => {
         expect(item.Holiday != null).toBe(true);
         expect(item.Description != null).toBe(false);
     });
-});
-
-test('Get sheet - no fields output', async () => {
-    const response = await request(app.callback()).get(`/sheets/3584589747?$deselect=id&$select=id`);
-    expect(response.status).toBe(403);
 });
 
 test('Get sheet - $skip + $limit', async () => {

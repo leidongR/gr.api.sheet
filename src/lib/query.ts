@@ -222,7 +222,6 @@ const appendAtomicCondition = (
       throw new Error(`operator '${operator}' are duplicated`);
     }
     if (queryKey !== operator) {
-      const uselessPrefix = queryKey.substring(0, operatorStart);
       throw new Error(`operator '${operator}' should has no prefix`);
     }
     try {

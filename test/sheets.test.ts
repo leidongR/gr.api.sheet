@@ -8,6 +8,20 @@ beforeAll(async () => {
     app = await initApp();
 });
 
+test('Http Methods', async () => {
+    let response = await request(app.callback()).head('/sheets');
+    expect(response.status).toBe(403);
+
+    response = await request(app.callback()).post('/sheets');
+    expect(response.status).toBe(403);
+
+    response = await request(app.callback()).patch('/sheets');
+    expect(response.status).toBe(403);
+
+    response = await request(app.callback()).delete('/sheets');
+    expect(response.status).toBe(403);
+});
+
 test('List sheets', async () => {
     const response = await request(app.callback()).get('/sheets');
     expect(response.status).toBe(200);
