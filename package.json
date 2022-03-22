@@ -1,7 +1,7 @@
 {
   "name": "gr.api.sheet",
   "version": "1.0.0",
-  "description": "Transfer xlsx files as restful quering apis",
+  "description": "Transfer xlsx files as restful querying apis",
   "main": "src/",
   "scripts": {
     "build": "rm -rf dist/ && tsc",
