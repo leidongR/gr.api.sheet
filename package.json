@@ -1,7 +1,7 @@
 {
   "name": "gr.api.sheet",
   "version": "1.0.0",
-  "description": "Transfer csv, xlsx files, google sheets as restful apis",
+  "description": "Transfer xlsx files as restful quering apis",
   "main": "src/",
   "scripts": {
     "build": "rm -rf dist/ && tsc",
@@ -49,7 +49,6 @@
   "keywords": [
     "sheet",
     "xlsx",
-    "csv",
     "restful",
     "api"
   ],

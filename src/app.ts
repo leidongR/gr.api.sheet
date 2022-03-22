@@ -26,7 +26,7 @@ export const initApp = async () => {
 
   // init local files
   const localPathes = config.get("source.local") as string[];
-  const localFilePaths = filesInFolders(localPathes, ["xlsx", "csv"], true);
+  const localFilePaths = filesInFolders(localPathes, ["xlsx"], true);
   localFilePaths.forEach((filepath) => {
     readLocalFile(filepath);
   });
