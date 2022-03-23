@@ -1,21 +1,21 @@
 # gr.api.sheet
 Transfer xlsx files as restful querying apis
 
-When app started, it will read assigned xlsx files and transfer each sheet as a restful querying api.
+Each sheet will be transfer as one restful querying api.
 
-## Limited File Format
+## Supported Files
 xlsx files with datatable-like sheets
 
 datatable-like means:
-- first row is column title row
-- other rows are data rows
+- the first row is data header
+- other rows are data
 
-## Supported datatypes
+## Supported Datatypes
 - number for integer, float
 - string for others
 
 
-## Supported query functions
+## Supported Query Functions
 - Equality
 - $lt, $lte, $gt, $gte
 - $in, $ne
@@ -26,8 +26,8 @@ datatable-like means:
 
 See [APIs](./api_docs/apis.md) for details.
 
-## Output Examples
-### List sheets
+## Usage Examples
+### List Sheets
 - Request: Get http://localhost:5208/sheets
 - Response:
 ```json
@@ -65,7 +65,7 @@ See [APIs](./api_docs/apis.md) for details.
 }
 ```
 
-### Query sheet
+### Query In Sheet
 - Request: Get http://localhost:5208/sheets/3584589747?$limit=1&$sort=-id
 - Response:
 ```json

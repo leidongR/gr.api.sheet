@@ -49,7 +49,7 @@ GET http://localhost:5208/sheets/3584589747?exchange$gte=M
 ```
 
 ### $in
-Find rows with column value is included in options
+Find rows which column value is equal to any of options
 
 #### Datatypes
 - number 
@@ -61,7 +61,7 @@ GET http://localhost:5208/sheets/3584589747?day$in=20170102&day$in=20170220
 ```
 
 ### $ne
-Find rows with column value is not equal to any of options.
+Find rows which column value is not equal to all of options.
 
 #### Datatypes
 - number 
@@ -73,7 +73,7 @@ GET http://localhost:5208/sheets/3584589747?day$ne=20170102&day$ne=20170220
 ```
 
 ### $like
-Find rows with column value contains assigned substring
+Find rows which column value contains assigned substring
 
 #### Datatypes
 - string
@@ -84,7 +84,7 @@ GET http://localhost:5208/sheets/3584589747?holiday$like=New%20Years
 ```
 
 ### $or
-Find rows that match any of the given grouping conditions.
+Find rows which match any of the given grouping conditions.
 Use $or[${groupId}] as prefix of other conditions
 
 #### Examples
@@ -131,7 +131,7 @@ Used to sort rows in result. As default, rows is ordered by row number in xlsx s
 - $sort=-${columnName}, sort by assigned column in descending order
 
 Note: If there are multi $sort assinged, the left condition takes precedence.
-For request below, the rows will be sorted by Holiday asc, if the Holiday are same, then sorted by Day desc.
+For request below, rows will be sorted by Holiday asc, if the Holiday are same, then sorted by Day desc.
 
 #### Examples
 ```
