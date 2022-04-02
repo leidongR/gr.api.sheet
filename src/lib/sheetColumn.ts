@@ -30,7 +30,6 @@ export class SheetColumn {
         if (typeof cell === "number") {
           _cell = cell;
         } else {
-          
           this.dataType = "string";
           _cell = `${cell}`;
         }
@@ -122,10 +121,14 @@ export class SheetColumn {
   };
 
   compareRows = (a: number, b: number) => {
-    if (this.dataType === 'number') {
-      return (this.cells[a] as any as number) - ((this.cells[b] as any as number));
+    if (this.dataType === "number") {
+      return (
+        (this.cells[a] as any as number) - (this.cells[b] as any as number)
+      );
     } else {
-      return (this.cells[a] as any as string).localeCompare(((this.cells[b] as any as string)))
+      return (this.cells[a] as any as string).localeCompare(
+        this.cells[b] as any as string
+      );
     }
-  }
+  };
 }

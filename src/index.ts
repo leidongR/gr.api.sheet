@@ -3,7 +3,6 @@ import { initApp } from "./app";
 
 const port = process.env.PORT || config.get("port");
 
-
 initApp()
   .then((app) => {
     const server = app.listen(port);

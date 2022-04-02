@@ -36,7 +36,7 @@ const char_to_num = (c: string): number => {
 
 /**
  * transfer column name as column number
- * @param column column name, A, B, C, ... , Z, AA, AB, ... or ZZ 
+ * @param column column name, A, B, C, ... , Z, AA, AB, ... or ZZ
  * @returns column number, from 1 to 27 * 26
  */
 export const column_to_num = (column: string): number => {

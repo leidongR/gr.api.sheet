@@ -241,11 +241,11 @@ export class Sheet {
   };
 
   schema = () => {
-    return this.columns.map(column => {
+    return this.columns.map((column) => {
       return {
-        "title": column.title,
-        "dataType": column.dataType
-      }
-    })
-  }
+        title: column.title,
+        dataType: column.dataType,
+      };
+    });
+  };
 }
