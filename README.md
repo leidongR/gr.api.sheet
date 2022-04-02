@@ -102,3 +102,26 @@ git clone https://github.com/leidongR/gr.api.sheet
 cd gr.api.sheet
 yarn && yarn run dev
 ```
+
+## Set Startup Config
+
+Use process env to override some config items
+
+### source.local
+
+Use env gr_api_sheet_source_local to replace config source.local(see config/default.json), for example:
+
+```shell
+gr_api_sheet_source_local=test_files yarn run dev
+
+# Separate multi paths with commas(,)
+gr_api_sheet_source_local=test_files,other_folder_or_file_path yarn run dev
+```
+
+### port
+
+Use env gr_api_sheet_port to replace config port(see config/default.json), for example:
+
+```shell
+gr_api_sheet_port=1314 yarn run dev
+```

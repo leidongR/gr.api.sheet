@@ -1,4 +1,6 @@
 {
+    "process_env_prefix": "gr_api_sheet_",
+    "process_env_source_local_joiner": ",",
     "port": 5208,
     "source": {
         "local": [

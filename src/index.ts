@@ -1,7 +1,7 @@
-import config = require("config");
 import { initApp } from "./app";
+import { getIntConfig } from "./lib/configHelper";
 
-const port = process.env.PORT || config.get("port");
+const port = getIntConfig("port");
 
 initApp()
   .then((app) => {

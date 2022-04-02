@@ -3,10 +3,10 @@ import * as cors from "@koa/cors";
 import * as Router from "koa-router";
 import * as bodyParser from "koa-bodyparser";
 import SheetsHandler from "./service/sheetsHandler";
-import config = require("config");
 import { readLocalFile } from "./lib/sheets";
 import { filesInFolders } from "./lib/file";
 import SheetHandler from "./service/sheetHandler";
+import { getStrArrayConfig } from "./lib/configHelper";
 
 const app = new Koa();
 const router = new Router();
@@ -25,7 +25,7 @@ export const initApp = async () => {
   console.info(`[Info] begin to init app`);
 
   // init local files
-  const localPathes = config.get("source.local") as string[];
+  const localPathes = getStrArrayConfig("source.local");
   const localFilePaths = filesInFolders(localPathes, ["xlsx"], true);
   localFilePaths.forEach((filepath) => {
     readLocalFile(filepath);
