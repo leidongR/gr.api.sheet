@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+
+node --max_old_space_size=2048 -r ./tsconfig-paths-bootstrap.js dist/
+
+exec "$@"

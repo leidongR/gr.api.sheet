@@ -125,3 +125,18 @@ Use env gr_api_sheet_port to replace config port(see config/default.json), for e
 ```shell
 gr_api_sheet_port=1314 yarn run dev
 ```
+
+# Use In Docker
+
+## Use Image goodrelay/gr.api.sheet
+
+```shell
+docker-compose up
+```
+
+## Build Your Own Image
+```shell
+docker build -t your.image.name ./
+
+docker run -p 5208:5208 your.image.name
+```

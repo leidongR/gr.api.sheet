@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  grsheet:
+    image: goodrelay/gr.api.sheet:1.0.0
+    ports:
+      - "1314:1314"
+    environment:
+      gr_api_sheet_source_local: "/gr.api.sheet/sheets"
+      gr_api_sheet_port: 1314
+    volumes:
+      - ./test_files:/gr.api.sheet/sheets
+
